@@ -17,10 +17,11 @@ public class JpaMain {
 
             // persist
 
-            //영속성 컨텍스트2 Dirty Checking Test
-            Member member = em.find(Member.class, 1L);
-            member.setName("ZZZZZ");
+            Member member = new Member(200L, "member200");
+            em.persist(member);
+            em.flush();
 
+            System.out.println("====================");
 
             tx.commit();
         } catch (Exception e) {
