@@ -15,14 +15,11 @@ public class JpaMain {
         tx.begin();
         try {
 
-            // persist
-
-            Member member = new Member(200L, "member200");
+            Member member = new Member();
+            member.setId(1L);
+            member.setName("Jackson");
+            member.setRoleType(RoleType.USER);
             em.persist(member);
-            em.flush();
-
-            System.out.println("====================");
-
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -35,22 +32,3 @@ public class JpaMain {
 }
 
 
-/*
-영속성 컨텍스트
-
-JPA를 이해하는데 가장 중요한 용어
-엔티티를 영구 저장하는 환경
-
-엔티티 매니저 ? 영속성 컨텍스트?
-
-영속성 컨텍스트는 논리적인 개념 / 눈에 보이지 않는다?
-
-엔티티 매니저 -> 영속성 컨텍스트에 접근
-
-엔티티의 생명주기
-비영속 -> 영속성 컨텍스트와 전혀 관계가 없는 새로운 상태  -> 새로운 ?
-영속 - 영속성 컨텍스트에 관리되는 상태
-준영속 -> 영속성 컨텍스트에 저장되었다가 분리된 상태
-삭제 -> 삭제된 상태
-
- */
