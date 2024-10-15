@@ -7,11 +7,18 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@SequenceGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        sequenceName = "MEMBER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
+        initialValue = 1, allocationSize = 1
+)
 public class Member {
     public Member() {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
     @Column(nullable = false, length = 10)
@@ -34,7 +41,6 @@ public class Member {
 
     @Lob
     private String description;
-
 
     public Long getId() {
         return id;
