@@ -15,20 +15,19 @@ public class JpaMain {
         tx.begin();
         try {
 
-          Member member = new Member();
-          member.setName("hello");
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-          em.persist(member);
+        Parent parent = new Parent();
 
-          em.flush();
-          em.clear();
+        parent.addChild(child1);
+        parent.addChild(child2);
 
-          Member findMember = em.getReference(Member.class, member.getId());
-          System.out.println("findMember = " + findMember.getClass());
-          System.out.println("findMember.id = " + findMember.getId());
-          System.out.println("findMember.name = " + findMember.getName());
+        em.persist(parent);
+        em.persist(child1);
+        em.persist(child2);
 
-
+        tx.commit();
 
         } catch (Exception e) {
             tx.rollback();
