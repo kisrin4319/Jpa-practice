@@ -42,8 +42,8 @@ public class Member extends BaseEntity {
     @Lob
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     public Long getId() {
