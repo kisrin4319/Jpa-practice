@@ -12,7 +12,7 @@ import java.util.Date;
         sequenceName = "MEMBER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
         initialValue = 1, allocationSize = 1
 )
-public class Member {
+public class Member extends BaseEntity {
     public Member() {
     }
 
@@ -41,6 +41,10 @@ public class Member {
 
     @Lob
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
 
     public Long getId() {
         return id;
