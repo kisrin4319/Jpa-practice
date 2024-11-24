@@ -1,6 +1,9 @@
 package hellojpa;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -15,17 +18,34 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Child child1 = new Child();
-            Child child2 = new Child();
+          /*  List<Member> result = em.createQuery("select m From Member m where m.name like '%kim%'",
+                    Member.class
+            ).getResultList();
 
-        Parent parent = new Parent();
+            for (Member m : result) {
+                System.out.println("member : "+ m);
+            }*/
 
-        parent.addChild(child1);
-        parent.addChild(child2);
 
-        em.persist(parent);
-        em.persist(child1);
-        em.persist(child2);
+           /* //Criteria 사용 준비
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> query =  cb.createQuery(Member.class);
+
+            Root<Member> m = query.from(Member.class);
+            CriteriaQuery<Member> cq =  query.select(m).where(cb.equal(m.get("name"), "kim"));
+            List<Member> resultList = em.createQuery(cq)
+                            .getResultList();
+                            */
+            List<Member> result =  em.createQuery("select m from Member m order by m.age desc", Member.class)
+                    .setFirstResult(1)
+                    .setMaxResults(10).
+                    getResultList();
+
+
+            System.out.println("result.size = " + result.size());
+            for (Member member : result) {
+                printMemberAndTeam(member);
+            }
 
         tx.commit();
 
@@ -41,8 +61,6 @@ public class JpaMain {
     private static void printMemberAndTeam(Member member) {
         String username = member.getName();
         System.out.println("Name: " + username);
-
-        Team team = member.get
     }
 }
 
